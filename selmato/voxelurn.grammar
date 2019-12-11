@@ -26,9 +26,11 @@
 (rule $Action (add $Color) (lambda c (: @add (var c) here)) (anchored 1))
 (rule $Action (add $Color $Direction) (lambda c (lambda d (: @add (var c) (var d)))) (anchored 1))
 (rule $Action (move $Direction) (lambda d (: @move (var d))) (anchored 1)) #simple move instruction, just takes dir-argument
-(rule $Action (move $Direction $Number $Extent) (lambda x ( lambda y ( lambda z (: @move (var x) (var y) (var z))))) (anchored 1)) 
+(rule $Action (move $Direction $Number $Extent) (lambda x ( lambda y ( lambda z (: @move (var x) (var y) (var z))))) (anchored 1))
+(rule $Action (move to $Location) (lambda l (: @move (var l))) (anchored 1))
+(rule $Action (move to the $Location) (lambda l (: @move (var l))) (anchored 1))
+(rule $Action (move into the $Location) (lambda l (: @move (var l))) (anchored 1))
 (rule $Action ($Name stop) (lambda x (: @stop (var x))) (anchored 1)) #simple stop instruction, just takes name-argument
-
 
 # primitive actions with arguments
 
@@ -45,6 +47,11 @@
 (for @dir (top bottom left right front back forward forwards backward backwards up down)
   (rule $Direction (@dir) @dir (anchored 1))
 )
+
+(for @loc (desk kitchen hallway lab door)
+  (rule $Location (@loc) @loc (anchored 1))
+)
+
 
 (rule $Set ($Name) (lambda x
 			   (call n (var x))) (anchored 1))
@@ -65,11 +72,16 @@
 (rule $ValueSet ($Number) (IdentityFn) (anchored 1))
 
 (rule $ValueSet ($Extent) (IdentityFn) (anchored 1))
+(rule $ValueSet ($Location) (IdentityFn) (anchored 1))
+
+
 # set the range via NumberFn options
 
 (rule $Number ($TOKEN) (NumberFn) (anchored 1))
 (rule $Color ($TOKEN) (SimpleLexiconFn (type color)) (anchored 1))
 (rule $Extent ($TOKEN) (SimpleLexiconFn (type extent)) (anchored 1))
+(rule $Location ($TOKEN) (SimpleLexiconFn (type location)) (anchored 1))
+
 ####### domain specific floating rules
 # red means has color red
 # (rule $Sets ($Color) (lambda c (color (var c))))
