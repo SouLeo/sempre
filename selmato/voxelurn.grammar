@@ -11,6 +11,7 @@
 (def @stop stop)
 (def @pause pause)
 (def @continue continue)
+(def @mode mode)
 
 
 
@@ -55,6 +56,8 @@
 (rule $Action ($Name continue) (lambda x (: @continue (var x))) (anchored 1))
 (rule $Action ($Name carry-on) (lambda x (: @continue (var x))) (anchored 1))
 (rule $Action ($Name resume) (lambda x (: @continue (var x))) (anchored 1))
+(rule $Action ($Mode control) (lambda x (: @mode (var x))) (anchored 1))
+(rule $Action ($Name $Mode control) (lambda x (lambda y (: @mode (var x) (var y)))) (anchored 1))
 
 
 
@@ -71,6 +74,9 @@
 (rule $Set ($Extreme) (lambda e
 			   (call @veryx (var e))) (anchored 1))
 
+(rule $Set ($Name) (lambda x
+			   (call n (var x))) (anchored 1))
+
 (for @dir (top bottom left right front back forward forwards backward backwards up down)
   (rule $Direction (@dir) @dir (anchored 1))
 )
@@ -79,13 +85,19 @@
   (rule $Location (@loc) @loc (anchored 1))
 )
 
-
-(rule $Set ($Name) (lambda x
-			   (call n (var x))) (anchored 1))
-
 (for @name (robot all)
   (rule $Name (@name) @name (anchored 1))
 )
+
+(for @mode (autonomous remote)
+  (rule $Mode (@mode) @mode (anchored 1))
+
+)
+
+
+
+
+
 
 
 
@@ -100,6 +112,7 @@
 
 (rule $ValueSet ($Extent) (IdentityFn) (anchored 1))
 (rule $ValueSet ($Location) (IdentityFn) (anchored 1))
+(rule $ValueSet ($Mode) (IdentityFn) (anchored 1))
 
 
 # set the range via NumberFn options
@@ -108,6 +121,8 @@
 (rule $Color ($TOKEN) (SimpleLexiconFn (type color)) (anchored 1))
 (rule $Extent ($TOKEN) (SimpleLexiconFn (type extent)) (anchored 1))
 (rule $Location ($TOKEN) (SimpleLexiconFn (type location)) (anchored 1))
+(rule $Mode ($TOKEN) (SimpleLexiconFn (type mode)) (anchored 1))
+
 
 ####### domain specific floating rules
 # red means has color red
