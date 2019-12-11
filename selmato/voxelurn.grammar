@@ -7,6 +7,7 @@
 (def @base base)
 (def @add add)
 (def @move move)
+(def @turn turn)
 (def @stop stop)
 
 # syntactic sugar
@@ -38,6 +39,10 @@
 (rule $Action (navigate $Direction $Number $Extent) (lambda x ( lambda y ( lambda z (: @move (var x) (var y) (var z))))) (anchored 1))
 (rule $Action (navigate to the $Location) (lambda l (: @move (var l))) (anchored 1))
 (rule $Action (navigate into the $Location) (lambda l (: @move (var l))) (anchored 1))
+(rule $Action (turn $Direction) (lambda d (: @turn (var d))) (anchored 1))
+(rule $Action (turn $Direction $Number $Extent) (lambda x ( lambda y ( lambda z (: @turn (var x) (var y) (var z))))) (anchored 1))
+(rule $Action (spin $Direction) (lambda d (: @turn (var d))) (anchored 1))
+(rule $Action (spin $Direction $Number $Extent) (lambda x ( lambda y ( lambda z (: @turn (var x) (var y) (var z))))) (anchored 1))
 (rule $Action ($Name stop) (lambda x (: @stop (var x))) (anchored 1)) #simple stop instruction, just takes name-argument
 
 # primitive actions with arguments
