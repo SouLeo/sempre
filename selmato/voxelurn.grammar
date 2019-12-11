@@ -7,6 +7,7 @@
 (def @base base)
 (def @add add)
 (def @move move)
+(def @stop stop)
 
 # syntactic sugar
 (def @veryx veryx)
@@ -25,6 +26,8 @@
 (rule $Action (add $Color) (lambda c (: @add (var c) here)) (anchored 1))
 (rule $Action (add $Color $Direction) (lambda c (lambda d (: @add (var c) (var d)))) (anchored 1))
 (rule $Action (move $Direction) (lambda d (: @move (var d))) (anchored 1))
+(rule $Action ($Name stop) (lambda x (: @stop (var x))) (anchored 1))
+
 
 # primitive actions with arguments
 
@@ -38,9 +41,17 @@
 (rule $Set ($Extreme) (lambda e
 			   (call @veryx (var e))) (anchored 1))
 
-(for @dir (top bot left right front back)
+(for @dir (top bottom left right front back forward forwards backward backwards up down)
   (rule $Direction (@dir) @dir (anchored 1))
 )
+
+(rule $Set ($Name) (lambda x
+			   (call n (var x))) (anchored 1))
+
+(for @name (robot all)
+  (rule $Name (@name) @name (anchored 1))
+)
+
 (rule $Extreme (very $Direction) (IdentityFn) (anchored 1))
 
 (for @rel (col row height color name age)
