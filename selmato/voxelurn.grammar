@@ -30,6 +30,14 @@
 (rule $Action (move to $Location) (lambda l (: @move (var l))) (anchored 1))
 (rule $Action (move to the $Location) (lambda l (: @move (var l))) (anchored 1))
 (rule $Action (move into the $Location) (lambda l (: @move (var l))) (anchored 1))
+(rule $Action (go $Direction) (lambda d (: @move (var d))) (anchored 1))
+(rule $Action (go $Direction $Number $Extent) (lambda x ( lambda y ( lambda z (: @move (var x) (var y) (var z))))) (anchored 1))
+(rule $Action (go to the $Location) (lambda l (: @move (var l))) (anchored 1))
+(rule $Action (go into the $Location) (lambda l (: @move (var l))) (anchored 1))
+(rule $Action (navigate $Direction) (lambda d (: @move (var d))) (anchored 1))
+(rule $Action (navigate $Direction $Number $Extent) (lambda x ( lambda y ( lambda z (: @move (var x) (var y) (var z))))) (anchored 1))
+(rule $Action (navigate to the $Location) (lambda l (: @move (var l))) (anchored 1))
+(rule $Action (navigate into the $Location) (lambda l (: @move (var l))) (anchored 1))
 (rule $Action ($Name stop) (lambda x (: @stop (var x))) (anchored 1)) #simple stop instruction, just takes name-argument
 
 # primitive actions with arguments
