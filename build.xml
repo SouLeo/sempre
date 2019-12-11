@@ -25,7 +25,7 @@
     <antcall target="compile.released"/>
   </target>
 
-  <target name="compile.released" depends="init,core,cache,corenlp,freebase,tables,cprune,overnight"/>
+  <target name="compile.released" depends="init,core,cache,corenlp,freebase,tables,cprune,overnight,selmato"/>
 
   <!-- Compile core -->
   <target name="core" depends="init">
@@ -108,6 +108,16 @@
     <jar destfile="${libsempre}/sempre-interactive.jar" basedir="${classes}/interactive"/>
   </target>
 
+  <!-- Compile interactive -->
+  <target name="selmato" depends="init,core">
+    <echo message="Compiling ${ant.project.name}: selmato"/>
+    <mkdir dir="${classes}/selmato"/>
+    <javac srcdir="${src}" destdir="${classes}/selmato" classpathref="lib.path" debug="true" includeantruntime="false" source="${source}" target="${target}">
+      <include name="edu/stanford/nlp/sempre/selmato/"/>
+    </javac>
+    <jar destfile="${libsempre}/sempre-selmato.jar" basedir="${classes}/selmato"/>
+  </target>
+  
   <!-- Compile geo880 -->
   <target name="geo880" depends="init,core,corenlp,tables">
     <echo message="Compiling ${ant.project.name}: geo880"/>
