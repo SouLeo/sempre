@@ -446,6 +446,8 @@ nil) })
 addMode('simple', 'Simple shell', lambda { |e| l(
   codalab, 'java', '-cp', 'libsempre/*:lib/*', '-ea', 'edu.stanford.nlp.sempre.Main',
   o('Main.interactive'),
+  o('SimpleLexicon.inPaths', "./interactive/csscolors.lexicon"),
+  o('SimpleLexicon.inPaths', "./selmato/extent.lexicon"),
 nil) })
 
 addMode('simple-sparql', 'Simple shell for querying SPARQL', lambda { |e| l(
