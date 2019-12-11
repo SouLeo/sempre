@@ -9,6 +9,8 @@
 (def @move move)
 (def @turn turn)
 (def @stop stop)
+(def @pause pause)
+
 
 # syntactic sugar
 (def @veryx veryx)
@@ -44,6 +46,13 @@
 (rule $Action (spin $Direction) (lambda d (: @turn (var d))) (anchored 1))
 (rule $Action (spin $Direction $Number $Extent) (lambda x ( lambda y ( lambda z (: @turn (var x) (var y) (var z))))) (anchored 1))
 (rule $Action ($Name stop) (lambda x (: @stop (var x))) (anchored 1)) #simple stop instruction, just takes name-argument
+(rule $Action ($Name pause) (lambda x (: @pause (var x))) (anchored 1))
+(rule $Action ($Name pause for $Number $Extent) (lambda x ( lambda y ( lambda z (: @pause (var x) (var y) (var z))))) (anchored 1))
+(rule $Action ($Name wait) (lambda x (: @pause (var x))) (anchored 1))
+(rule $Action ($Name wait for $Number $Extent) (lambda x ( lambda y ( lambda z (: @pause (var x) (var y) (var z))))) (anchored 1))
+
+
+
 
 # primitive actions with arguments
 

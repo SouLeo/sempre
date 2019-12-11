@@ -3,3 +3,6 @@
 {"lexeme": "Yards", "formula": "yards", "type": "extent"}
 {"lexeme": "Degrees", "formula": "degrees", "type": "extent"}
 {"lexeme": "Radians", "formula": "radians", "type": "extent"}
+{"lexeme": "Seconds", "formula": "seconds", "type": "extent"}
+{"lexeme": "Minutes", "formula": "minutes", "type": "extent"}
+{"lexeme": "Hours", "formula": "hours", "type": "extent"}
