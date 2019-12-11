@@ -10,6 +10,8 @@
 (def @turn turn)
 (def @stop stop)
 (def @pause pause)
+(def @continue continue)
+
 
 
 # syntactic sugar
@@ -50,6 +52,9 @@
 (rule $Action ($Name pause for $Number $Extent) (lambda x ( lambda y ( lambda z (: @pause (var x) (var y) (var z))))) (anchored 1))
 (rule $Action ($Name wait) (lambda x (: @pause (var x))) (anchored 1))
 (rule $Action ($Name wait for $Number $Extent) (lambda x ( lambda y ( lambda z (: @pause (var x) (var y) (var z))))) (anchored 1))
+(rule $Action ($Name continue) (lambda x (: @continue (var x))) (anchored 1))
+(rule $Action ($Name carry-on) (lambda x (: @continue (var x))) (anchored 1))
+(rule $Action ($Name resume) (lambda x (: @continue (var x))) (anchored 1))
 
 
 
