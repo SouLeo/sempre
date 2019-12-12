@@ -448,6 +448,7 @@ addMode('simple', 'Simple shell', lambda { |e| l(
   o('Main.interactive'),
   o('SimpleLexicon.inPaths', "./interactive/csscolors.lexicon"),
   o('SimpleLexicon.inPaths', "./selmato/extent.lexicon"),
+  o('LanguageAnalyzer.languageAnalyzer', 'corenlp.CoreNLPAnalyzer'),
 nil) })
 
 addMode('simple-sparql', 'Simple shell for querying SPARQL', lambda { |e| l(
